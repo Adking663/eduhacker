@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to Hacker</title>
+  <style>
+    body {
+      background: #0f2027;
+      background: linear-gradient(135deg, #2c5364, #203a43, #0f2027);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .welcome-container, .login-container, .create-container, .home-container {
+      color: #00ff41;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      text-shadow:
+        0 0 10px #00ff41,
+        0 0 20px #00ff41,
+        0 0 30px #fff,
+        0 0 40px #fff;
+      border: 2px solid #00ff41;
+      padding: 40px 60px;
+      border-radius: 15px;
+      background: rgba(0,0,0,0.7);
+      box-shadow:
+        0 0 40px #00ff4155,
+        0 0 60px #fff8;
+      min-width: 400px;
+      min-height: 100px;
+      text-align: center;
+    }
+    .login-container, .create-container, .home-container {
+      display: none;
+      font-size: 1.2rem;
+      padding: 30px 40px;
+      min-width: 320px;
+    }
+    .login-container input, .create-container input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #00ff41;
+      border-radius: 5px;
+      background: #111;
+      color: #00ff41;
+      font-size: 1rem;
+      outline: none;
+      font-family: 'Courier New', Courier, monospace;
+      box-shadow: 0 0 10px #fff8;
+    }
+    .login-container button, .create-container button {
+      background: #00ff41;
+      color: #111;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow:
+        0 0 10px #00ff41,
+        0 0 20px #fff8;
+      transition: background 0.2s;
+    }
+    .login-container button:hover, .create-container button:hover {
+      background: #00cc33;
+    }
+    .option-btns {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    .option-btns button {
+      background: #00ff41;
+      color: #111;
+      border: none;
+      padding: 10px 30px;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-family: 'Courier New', Courier, monospace;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px #00ff41,
+        0 0 20px #fff8;
+      transition: background 0.2s;
+    }
+    .option-btns button:hover {
+      background: #00cc33;
+    }
+    .cursor {
+      display: inline-block;
+      width: 12px;
+      background: #00ff41;
+      animation: blink 0.7s infinite;
+      margin-left: 2px;
+      height: 1.2em;
+      vertical-align: bottom;
+      box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .back-link {
+      color: #00ff41;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 15px;
+      display: inline-block;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+    }
+    .back-link:hover {
+      color: #00cc33;
+    }
+    /* Home page style */
+    .home-container h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow:
+        0 0 10px #00ff41,
+        0 0 20px #fff;
+    }
+    .home-container p {
+      font-size: 1.3rem;
+      color: #00ff41;
+      text-shadow: 0 0 10px #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container" id="welcome">
+    <span id="typed"></span><span class="cursor"></span>
+    <div class="option-btns" id="optionBtns" style="display:none;">
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showCreate()">Create Account</button>
+    </div>
+  </div>
+  <div class="login-container" id="login">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required><br>
+      <input type="password" id="password" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+    </form>
+    <span class="back-link" onclick="backToOptions()">← Back</span>
+    <div id="loginError" style="color:#ff4444;margin-top:10px;font-size:1rem;display:none;">Invalid username or password!</div>
+  </div>
+  <div class="create-container" id="create">
+    <h2>Create Account</h2>
+    <form>
+      <input type="text" placeholder="Username" required><br>
+      <input type="password" placeholder="Password" required><br>
+      <input type="password" placeholder="Confirm Password" required><br>
+      <button type="submit">Create</button>
+    </form>
+    <span class="back-link" onclick="backToOptions()">← Back</span>
+  </div>
+  <div class="home-container" id="home">
+    <h1>Welcome, Hacker!</h1>
+    <p>You have successfully logged in.<br>Enjoy your hacker home page with white glow effect!</p>
+  </div>
+  <script>
+    const text = "Welcome to Hacker";
+    const typed = document.getElementById('typed');
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        typed.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      } else {
+        setTimeout(() => {
+          document.getElementById('optionBtns').style.display = 'flex';
+        }, 700);
+      }
+    }
+    function showLogin() {
+      document.getElementById('welcome').style.display = 'none';
+      document.getElementById('login').style.display = 'block';
+      document.getElementById('create').style.display = 'none';
+      if(document.getElementById('home')) document.getElementById('home').style.display = 'none';
+    }
+    function showCreate() {
+      document.getElementById('welcome').style.display = 'none';
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('create').style.display = 'block';
+      if(document.getElementById('home')) document.getElementById('home').style.display = 'none';
+    }
+    function backToOptions() {
+      typed.textContent = "";
+      document.querySelector('.cursor').style.display = 'none';
+      document.getElementById('welcome').style.display = 'flex';
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('create').style.display = 'none';
+      if(document.getElementById('home')) document.getElementById('home').style.display = 'none';
+      document.getElementById('optionBtns').style.display = 'flex';
+    }
+    // Login: Only open home page if username and password are correct
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      localStorage.clear()
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const savedUser = localStorage.getItem('hacker_username') || "admin";
+      const savedPass = localStorage.getItem('hacker_password') || "1234";
+      if(username === savedUser && password === savedPass) {
+        window.location.href = "home.html";
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    });
+    window.onload = typeWriter;
+  </script>
+</body>
+</html>

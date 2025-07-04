@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nishu Bhai - Personal Website</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 🔊 Voice Play Button -->
+  <button onclick="document.getElementById('introAudio').play()">🔊 Play Welcome Voice</button>
+  <audio id="introAudio">
+    <source src="intro.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="background"></div>
+  <div class="main-container">
+    <img src="your-photo.jpg" alt="Nishu Bhai" class="profile-pic" />
+    <h1 class="glow-text">I'm <span class="typewriter"></span></h1>
+    <p class="tagline">Follow me, connect with me, and watch my world.</p>
+
+    <div class="social-buttons">
+      <a href="https://instagram.com/adjaanbhai" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/ADJAANBHAI?mibextid=JRoKGi" target="_blank">Facebook</a>
+      <a href="https://youtube.com/@codingstudent-k7n" target="_blank">YouTube</a>
+      <a href="mailto:umeshcyckle1984@email.com">Email</a>
+      <a href="https://wa.me/919608696210" target="_blank">WhatsApp</a>
+    </div>
+
+    <p id="visitor-count">Visitors: 1</p>
+
+    <div class="video-box">
+      <h2>🎥 My Introduction Video</h2>
+      <video autoplay muted loop playsinline>
+        <source src="your-video.mp4" type="video/mp4" />
+        Your browser doesn't support video.
+      </video>
+    </div>
+
+    <section class="about-me">
+      <h2>About Me</h2>
+      <p>I'm Nishu Bhai — Digital Creator, Influencer, and Innovator. I make videos, code cool stuff, and connect people online.</p>
+    </section>
+
+    <section class="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>🎬 Video Editing</li>
+        <li>💻 Web Development</li>
+        <li>📱 Social Media Management</li>
+      </ul>
+    </section>
+
+    <section class="gallery">
+      <h2>My Gallery</h2>
+      <img src="img1.jpg" />
+      
+    </section>
+
+    <section class="resume">
+      <h2>Download My Resume</h2>
+      <a href="resume.pdf" download>📄 Download Resume</a>
+    </section>
+
+   
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- ✅ Autoplay on user interaction -->
+  <script>
+    window.addEventListener("click", function () {
+      const audio = document.getElementById("introAudio");
+      if (audio) audio.play();
+    }, { once: true });
+
+    let count = localStorage.getItem('visitor') || 0;
+    count++;
+    localStorage.setItem('visitor', count);
+    document.getElementById("visitor-count").innerText = "Visitors: " + count;
+  </script>
+
+</body>
+</html>
